@@ -10,6 +10,7 @@
 <meta name = "viewport" content = "width-device-width", initial-scale = "1">
 <%-- w-d-w 브라우저 너비를 장치 너비에 맞추어 표시 / i-s 1.0 = 100% --%>
 <link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="css/custom.css">
 <%-- 내부 css 파일 참조--%>
 
 <title>JSP 게시판 웹 사이트</title>
