@@ -53,6 +53,7 @@ public class UserDAO {
 		return -2; // 데이터베이스 오류
 	}
 	
+	// 회원가입을 하는 함수
 	public int join(User user)
 	{
 		String SQL = "INSERT INTO USER VALUES(?, ?, ?, ?, ?)";
@@ -71,5 +72,32 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 		return -1; 	// 데이터베이스 오류
+	}
+	
+	
+	// 아이디를 찾는 함수
+	public int findID(String userName, String userEmail)
+	{
+		// userName으로 해당하는 userEmail를 select 하는 SQL
+		String SQL = "SELECT userEmail FROM USER WHERE userName = ?";
+		try
+		{
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1,  userName);		// SQL 인젝션 해킹 방어 ??
+			rs = pstmt.executeQuery();
+			if (rs.next())
+			{
+				if(rs.getString(1).equals(userEmail))
+					return 1;	// 아이디 찾기 성공
+				else
+					return 0;	// 이메일 틀림
+			}
+			return -1;	// 이름이 없음
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return -2; // 데이터베이스 오류
 	}
 }

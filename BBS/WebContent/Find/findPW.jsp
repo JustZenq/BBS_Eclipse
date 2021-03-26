@@ -66,12 +66,12 @@
 					</div>
 					<input type="submit" class="btn btn-primary form-control" value="로그인">
 					<%-- 아이디 비밀번호 찾기 --%>
-					<span class="form-group" style="margin-top: 10px; float: right;">
+					<span style="margin-top: 10px; float: right;">
 						<a href="findID.jsp">
 							아이디
 						</a>
 						/
-						<a href="findPW.jsp">
+						<a href="findPw.jsp">
 							비밀번호 찾기
 						</a>
 					</span>
