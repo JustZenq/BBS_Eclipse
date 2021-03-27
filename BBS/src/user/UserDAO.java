@@ -76,28 +76,26 @@ public class UserDAO {
 	
 	
 	// 아이디를 찾는 함수
-	public int findID(String userName, String userEmail)
+	public String findID(String userName, String userEmail)
 	{
 		// userName으로 해당하는 userEmail를 select 하는 SQL
-		String SQL = "SELECT userEmail FROM USER WHERE userName = ?";
+		String SQL = "SELECT userID FROM USER WHERE userName = ? AND userEmail = ?";
+
 		try
 		{
 			pstmt = conn.prepareStatement(SQL);
-			pstmt.setString(1,  userName);		// SQL 인젝션 해킹 방어 ??
+			pstmt.setString(1, userName);
+			pstmt.setString(2, userEmail);
 			rs = pstmt.executeQuery();
 			if (rs.next())
 			{
-				if(rs.getString(1).equals(userEmail))
-					return 1;	// 아이디 찾기 성공
-				else
-					return 0;	// 이메일 틀림
+				return rs.getString(1);	// rs는 첫 번째가 1이다;; (0부터 시작을 안한다)
 			}
-			return -1;	// 이름이 없음
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
-		return -2; // 데이터베이스 오류
+		return null;	// 만약에 이름이나 이메일이 틀렸다면 null 반환
 	}
 }

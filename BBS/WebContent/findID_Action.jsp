@@ -6,8 +6,8 @@
 <% request.setCharacterEncoding("UTF-8"); %>
 <%-- user/User.java에서 ID,Password 받아오기 --%>
 <jsp:useBean id="user" class="user.User" scope="page" />
-<jsp:setProperty name="user" property="userID" />
-<jsp:setProperty name="user" property="userPassword" />
+<jsp:setProperty name="user" property="userName" />
+<jsp:setProperty name="user" property="userEmail" />
 
 
 <!DOCTYPE html>
@@ -24,7 +24,7 @@
 			userID = (String) session.getAttribute("userID");
 		}
 	
-		if(userID != null)	// 이미 로그인이 되어있는 유저는 로그인이 또 되어지지 않게 막기
+		if(userID != null)	// 이미 로그인이 되어있는 유저는 아이디를 또 찾게 X
 		{
 			{
 				PrintWriter script = response.getWriter();
@@ -37,39 +37,25 @@
 		
 		
 		UserDAO userDAO = new UserDAO();
-		int result = userDAO.login(user.getUserID(), user.getUserPassword());
-		if (result == 1) 		 // 로그인 성공
+		String result = userDAO.findID(user.getUserName(), user.getUserEmail());
+		if (result == null) 		 // 아이디 찾기 성공
 		{
-			session.setAttribute("userID", user.getUserID());
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
+			script.println("alert('이름이나 이메일이 틀립니다.')");
+			script.println("history.back()");		// 이전 페이지로 사용자 돌려보내기
+			script.println("</script>");
+		}
+		else	// 이메일 틀림
+		{
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('당신의 아이디는 "+ result + " 입니다.')");
+			//script.println("location.href = 'findID_Result.jsp'");
 			script.println("location.href = 'main.jsp'");
 			script.println("</script>");
 		}
-		else if(result == 0)	// 비밀번호 틀림
-		{
-			PrintWriter script = response.getWriter();
-			script.println("<script>");
-			script.println("alert('비밀번호가 틀립니다.')");
-			script.println("history.back()");		// 이전 페이지로 사용자 돌려보내기
-			script.println("</script>");
-		}
-		else if(result == -1)	// 아이디가 없음
-		{
-			PrintWriter script = response.getWriter();
-			script.println("<script>");
-			script.println("alert('존재하지 않은 아이디입니다.')");
-			script.println("history.back()");		// 이전 페이지로 사용자 돌려보내기
-			script.println("</script>");
-		}
-		else if(result == -2)	// 데이터베이스 오류
-		{
-			PrintWriter script = response.getWriter();
-			script.println("<script>");
-			script.println("alert('데이터베이스 오류가 발생했습니다.')");
-			script.println("history.back()");		// 이전 페이지로 사용자 돌려보내기
-			script.println("</script>");
-		}
+
 		
 	%>
 </body>
