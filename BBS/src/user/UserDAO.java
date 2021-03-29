@@ -98,4 +98,27 @@ public class UserDAO {
 		}
 		return null;	// 만약에 이름이나 이메일이 틀렸다면 null 반환
 	}
+	
+	// 비밀번호를 찾는 함수
+		public int findPwd(String userID, String userEmail)
+		{
+			// USER 테이블에 userID와 userEmail 둘 다 맞는 데이터가 존재하는지 확인
+			String SQL = "SELECT * FROM USER WHERE userID = ? AND userEmail = ?";	
+			try	
+			{
+				pstmt = conn.prepareStatement(SQL);
+				pstmt.setString(1,  userID);		
+				pstmt.setString(2, userEmail);
+				rs = pstmt.executeQuery();
+				if (rs.next())
+					return 1; // 해당하는 데이터가 존재
+				else
+					return -1;	// 해당하는 데이터가 존재 X
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+			return -2; // 데이터베이스 오류
+		}
 }

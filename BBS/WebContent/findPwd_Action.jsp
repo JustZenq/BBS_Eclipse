@@ -6,7 +6,7 @@
 <% request.setCharacterEncoding("UTF-8"); %>
 <%-- user/User.java에서 ID,Password 받아오기 --%>
 <jsp:useBean id="user" class="user.User" scope="page" />
-<jsp:setProperty name="user" property="userName" />
+<jsp:setProperty name="user" property="userID" />
 <jsp:setProperty name="user" property="userEmail" />
 
 
@@ -37,22 +37,21 @@
 		
 		
 		UserDAO userDAO = new UserDAO();
-		String result = userDAO.findID(user.getUserName(), user.getUserEmail());
-		if (result == null) 		 // 이름이나 이메일이 틀림
+		int result = userDAO.findPwd(user.getUserID(), user.getUserEmail());
+		if (result == 1) 		 // ID와 Email이 맞는 데이터 존재!
 		{
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('이름이나 이메일이 틀립니다.')");
-			script.println("history.back()");		// 이전 페이지로 사용자 돌려보내기
+			script.println("alert('비밀번호는 암호화되어있어 변경만 가능합니다.')");
+			script.println("location.href = 'changePwd.jsp'");
 			script.println("</script>");
 		}
 		else	// 아이디 찾기 성공
 		{
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('당신의 아이디는 "+ result + " 입니다.')");
-			//script.println("location.href = 'findID_Result.jsp'");
-			script.println("location.href = 'main.jsp'");
+			script.println("alert('이름이나 이메일이 틀립니다.')");
+			script.println("history.back()");		// 이전 페이지로 사용자 돌려보내기
 			script.println("</script>");
 		}
 

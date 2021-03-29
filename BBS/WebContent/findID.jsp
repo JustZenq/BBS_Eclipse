@@ -57,7 +57,7 @@
 		<div class="col-lg-4">	
 			<div class="jumbotron" style="padding-top: 20px;">
 				<form method="post" action="findID_Action.jsp">	<%-- 비밀번호 숨길 떄 ***-> post --%>
-					<h3 style="text-align: center;">아이디 찾기</h3>
+					<h3 style="text-align: center;">아이디 찾기 화면</h3>
 					<div style="text-align: center; padding-bottom: 10px;">개인정보를 입력해주세요.</div>
 					<div class="form-group">
 						<input type="text" class="form-control" placeholder="이름" name="userName" maxlength="20">

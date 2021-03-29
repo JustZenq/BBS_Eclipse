@@ -56,25 +56,16 @@
 		<div class="col-lg-4"></div>
 		<div class="col-lg-4">	
 			<div class="jumbotron" style="padding-top: 20px;">
-				<form method="post" action="loginAction.jsp">	<%-- 비밀번호 숨길 떄 ***-> post --%>
-					<h3 style="text-align: center;">로그인 화면</h3>
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="아이디" name="userID" maxlength="20">
-					</div>
+				<form method="post" action="#.jsp">	<%-- 비밀번호 숨길 떄 ***-> post --%>
+					<h3 style="text-align: center;">비밀번호 변경 화면</h3>
+					<div style="text-align: center; padding-bottom: 10px;">개인정보를 입력해주세요.</div>
 					<div class="form-group">
 						<input type="password" class="form-control" placeholder="비밀번호" name="userPassword" maxlength="20">
 					</div>
-					<input type="submit" class="btn btn-primary form-control" value="로그인">
-					<%-- 아이디 비밀번호 찾기 --%>
-					<span class="form-group" style="margin-top: 10px; float: right;">
-						<a href="findID.jsp">
-							아이디
-						</a>
-						/
-						<a href="findPwd.jsp">
-							비밀번호 찾기
-						</a>
-					</span>
+					<div class="form-group">
+						<input type="password" class="form-control" placeholder="비밀번호 확인" name="userPassword2" maxlength="20">
+					</div>
+					<input type="submit" class="btn btn-primary form-control" value="비밀번호 변경">
 				</form>
 			</div>
 		</div>
