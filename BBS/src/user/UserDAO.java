@@ -100,25 +100,43 @@ public class UserDAO {
 	}
 	
 	// 비밀번호를 찾는 함수
-		public int findPwd(String userID, String userEmail)
+	public int findPwd(String userID, String userEmail)
+	{
+		// USER 테이블에 userID와 userEmail 둘 다 맞는 데이터가 존재하는지 확인
+		String SQL = "SELECT * FROM USER WHERE userID = ? AND userEmail = ?";	
+		try	
 		{
-			// USER 테이블에 userID와 userEmail 둘 다 맞는 데이터가 존재하는지 확인
-			String SQL = "SELECT * FROM USER WHERE userID = ? AND userEmail = ?";	
-			try	
-			{
-				pstmt = conn.prepareStatement(SQL);
-				pstmt.setString(1,  userID);		
-				pstmt.setString(2, userEmail);
-				rs = pstmt.executeQuery();
-				if (rs.next())
-					return 1; // 해당하는 데이터가 존재
-				else
-					return -1;	// 해당하는 데이터가 존재 X
-			}
-			catch (Exception e)
-			{
-				e.printStackTrace();
-			}
-			return -2; // 데이터베이스 오류
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1,  userID);		
+			pstmt.setString(2, userEmail);
+			rs = pstmt.executeQuery();
+			if (rs.next())
+				return 1; // 해당하는 데이터가 존재
+			else
+				return -1;	// 해당하는 데이터가 존재 X
 		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return -2; // 데이터베이스 오류
+	}
+		
+	// 비빌번호를 바꾸는 함수
+	public int changePwd(String userPassword, String userID)
+	{
+		String SQL = "UPDATE USER SET userPassword = ? WHERE userID = ?";
+		try
+		{
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, userPassword);
+			pstmt.setString(2, userID);
+			return pstmt.executeUpdate();	// INSERT / DELETE / UPDATE 관련 구문에서는 반영된 레코드의 건수를 반환
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return -1; 	// 데이터베이스 오류
+	}
 }

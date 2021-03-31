@@ -4,7 +4,7 @@
 <%@ page import="java.io.PrintWriter" %>   
 <%-- 외부 내부 페이지 import 하기--%>
 <% request.setCharacterEncoding("UTF-8"); %>
-<%-- user/User.java에서 ID,Password 받아오기 --%>
+<%-- user/User.java에서 ID,Email --%>
 <jsp:useBean id="user" class="user.User" scope="page" />
 <jsp:setProperty name="user" property="userID" />
 <jsp:setProperty name="user" property="userEmail" />
@@ -40,10 +40,12 @@
 		int result = userDAO.findPwd(user.getUserID(), user.getUserEmail());
 		if (result == 1) 		 // ID와 Email이 맞는 데이터 존재!
 		{
+			String who_ID = user.getUserID();
+			
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('비밀번호는 암호화되어있어 변경만 가능합니다.')");
-			script.println("location.href = 'changePwd.jsp'");
+			script.println("location.href = 'changePwd.jsp?userID="+ user.getUserID() + "'");
 			script.println("</script>");
 		}
 		else	// 아이디 찾기 성공

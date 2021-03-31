@@ -5,10 +5,10 @@
 <head>
 <meta http-equv="Content-Type" content = "text/html"; charset="UTF-8">
 <meta name = "viewport" content = "width-device-width", initial-scale = "1">
-<%-- w-d-w 브라우저 너비를 장치 너비에 맞추어 표시 / i-s 1.0 = 100% --%>
+<%-- 내부 css 파일 참조--%>
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/custom.css">
-<%-- 내부 css 파일 참조--%>
+<%-- user/User.java에서 ID --%>
 
 
 <title>JSP 게시판 웹 사이트</title>
@@ -52,12 +52,15 @@
 			</ul>
 		</div>
 	</nav>
+	<%
+		String userID = request.getParameter("userID");
+	%>
 	
 	<div class="container">
 		<div class="col-lg-4"></div>
 		<div class="col-lg-4">	
 			<div class="jumbotron" style="padding-top: 20px;">
-				<form method="post" action="#.jsp" onsubmit="return input_check_func()">	<%-- 비밀번호 숨길 떄 ***-> post --%>
+				<form method="post" action="changePwd_Action.jsp?userID=<%= userID %>" onsubmit="return input_check_func()">	<%-- 비밀번호 숨길 떄 ***-> post --%>
 					<h3 style="text-align: center;">비밀번호 변경 화면</h3>
 					<div style="text-align: center; padding-bottom: 10px;">개인정보를 입력해주세요.</div>
 					<div class="form-group">
@@ -65,7 +68,7 @@
 					</div>
 					<div class="form-group">
 						<input type="password" class="form-control" placeholder="비밀번호 확인" id="userPassword_check" name="userPassword_check" maxlength="20">
-					</div>
+					</div>					
 					<input type="submit" class="btn btn-primary form-control" value="비밀번호 변경">
 				</form>
 			</div>
