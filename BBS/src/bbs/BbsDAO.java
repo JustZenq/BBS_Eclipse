@@ -113,6 +113,7 @@ public class BbsDAO {
 				bbs.setBbsDate(rs.getString(4));
 				bbs.setBbsContent(rs.getString(5));
 				bbs.setBbsAvailable(rs.getInt(6));
+				bbs.setLikeCount(rs.getInt(7));
 				list.add(bbs);
 			}
 		}catch(Exception e) {
@@ -153,6 +154,7 @@ public class BbsDAO {
 				bbs.setBbsDate(rs.getString(4));
 				bbs.setBbsContent(rs.getString(5));
 				bbs.setBbsAvailable(rs.getInt(6));
+				bbs.setLikeCount(rs.getInt(7));
 				return bbs;
 			}
 		}catch (Exception e) {
