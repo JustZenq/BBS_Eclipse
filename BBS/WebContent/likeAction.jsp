@@ -88,6 +88,6 @@ public static String getClientIP(HttpServletRequest request) {
 			script.close();
 			return;
 			}
-	%>
+	%> //Unreachable Code has occured :(
 </body>
 </html>
