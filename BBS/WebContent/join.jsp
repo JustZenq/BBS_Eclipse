@@ -3,16 +3,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equv="Content-Type" content = "text/html"; charset="UTF-8">
-<meta name = "viewport" content = "width-device-width", initial-scale = "1">
-<%-- w-d-w 브라우저 너비를 장치 너비에 맞추어 표시 / i-s 1.0 = 100% --%>
-<link rel="stylesheet" href="css/bootstrap.css">
-<link rel="stylesheet" href="css/custom.css">
-<%-- 내부 css 파일 참조--%>
-
-<title>JSP 게시판 웹 사이트</title>
+<meta http-equiv="Content_Type" content ="text/html; charset="UTF-8">
+<meta name = "viewport" content = "width=device-width", initial-scale = "1">
+<!--  루트 폴더에 부트스트랩을 참조하는 링크 -->
+<link rel = "stylesheet" href = "css/bootstrap.css">
+<link rel = "stylesheet" href = "css/custom.css">
+<title>JSP 게시판 웹사이트</title>
 </head>
 <body>
+	<%
+		String userID = null;	// 로그인을 안 한 사람이라면 null 값
+		if (session.getAttribute("userID") != null)	// 로그인을 한 사람이라면 값 유지
+		{
+			userID = (String) session.getAttribute("userID");
+		}
+	%>
+
 	<%-- 네비게이션 링크 --%>
 	<nav class="navbar navbar-default">
 	<%-- 내부 css 파일 참조--%> 
@@ -32,68 +38,85 @@
 		<%-- 메뉴 링크 --%>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li><a href="main.jsp">메인</a></li>
+				<li class="active"><a href="main.jsp">메인</a></li>	<%-- active = 지금 접속한 페이지 --%>
 				<li><a href="bbs.jsp">게시판</a></li>
 			</ul>
 			
+			<%
+				if(userID == null)	// 로그인 X
+				{
+			%>
 			<%-- 드랍다운 메뉴 --%>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
 					<a href="#" class="dropdown-toogle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
 						aria-expanded="false">접속하기<span class="caret"></span></a>
-						
-						<ul class="dropdown-menu">
-							<li><a href="login.jsp">로그인</a></li>
-							<li class="active"><a href="join.jsp">회원가입</a></li>
-						</ul>
+							
+					<ul class="dropdown-menu">
+						<li><a href="login.jsp">로그인</a></li>
+						<li><a href="join.jsp">회원가입</a></li>
+					</ul>
+				</li>
+			</ul>	
+			<%
+				} else				// 로그인 O
+				{
+			%>
+			<%-- 드랍다운 메뉴 --%>
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toogle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">회원관리<span class="caret"></span></a>
+							
+					<ul class="dropdown-menu">
+						<li><a href="logoutAction.jsp">로그아웃</a></li>
+					</ul>
 				</li>
 			</ul>
+			<% 		
+				}
+			%>
 		</div>
 	</nav>
-	
-	<div class="container">
-		<div class="col-lg-4"></div>
-		<div class="col-lg-4">	
+	<!-- 회원가입 양식 -->
+	<div class = "container"> <!-- 하나의 영역 생성 -->
+		<div class="col-lg-4"></div> <!-- 영역의 크기 -->
+		<div class="col-lg-4">
+			<!-- 점보트론은 특정컨텐츠, 정보를 두드러지게 하기 위한 큰 박스 -->
 			<div class="jumbotron" style="padding-top: 20px;">
-				<form method="post" action="joinAction.jsp">	<%-- 비밀번호 숨길 떄 ***-> post --%>
+				<form method="post" action="joinAction.jsp">
 					<h3 style="text-align: center;">회원가입 화면</h3>
 					<div class="form-group">
 						<input type="text" class="form-control" placeholder="아이디" name="userID" maxlength="20">
 					</div>
-					
 					<div class="form-group">
 						<input type="password" class="form-control" placeholder="비밀번호" name="userPassword" maxlength="20">
 					</div>
-					
 					<div class="form-group">
 						<input type="text" class="form-control" placeholder="이름" name="userName" maxlength="20">
 					</div>
-					
-					<div class="form-group" style="text-align: center;">
-						<div class="btn-group" data-toggle="buttons">
+					<div class="form-group" style = "text-align : center;">
+						<div class="btn-group" data-toggle = "buttons">
 							<label class="btn btn-primary active">
 								<input type="radio" name="userGender" autocomplete="off" value="남자" checked>남자
 							</label>
-							
 							<label class="btn btn-primary">
 								<input type="radio" name="userGender" autocomplete="off" value="여자" checked>여자
 							</label>
 						</div>
 					</div>
-					
-					<div class="form-group">
-						<input type="email" class="form-control" placeholder="이메일" name="userEmail" maxlength="20">
-					</div>
-					
+					<div class ="form-group">
+						<input type="text" class="form-control" placeholder="이메일" name="userEmail" maxlength="50">
+						</div>
 					<input type="submit" class="btn btn-primary form-control" value="회원가입">
-				</form>
+					</form>
+				</div>
 			</div>
 		</div>
 		<div class="col-lg-4"></div>
-	</div>
-	<script src = "https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src = "js/bootstrap.js"></script>
-	<%-- 외부 js와 내부 js 파일 참조--%>
 </body>
 </html>

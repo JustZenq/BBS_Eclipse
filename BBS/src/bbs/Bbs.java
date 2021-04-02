@@ -1,15 +1,13 @@
 package bbs;
 
 public class Bbs {
-
+	
 	private int bbsID;
 	private String bbsTitle;
 	private String userID;
-	private String bbsDate;		// Java에서는 날짜 자료형이 없으므로 String형으로 생성
+	private String bbsDate;
 	private String bbsContent;
 	private int bbsAvailable;
-	
-	
 	public int getBbsID() {
 		return bbsID;
 	}

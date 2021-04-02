@@ -3,13 +3,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equv="Content-Type" content = "text/html"; charset="UTF-8">
-<link rel="stylesheet" href="css/custom.css">
-<title>JSP 게시판 웹 사이트</title>
+<meta charset="UTF-8">
+<link rel = "stylesheet" href = "css/custom.css">
+<title>JSP 게시판 웹사이트</title>
 </head>
 <body>
+	<!-- 로그인 페이지로 이동하는 스크립트 코드 -->
 	<script>
-		location.href = 'main.jsp'
+		location.href = "login.jsp";
 	</script>
 </body>
 </html>

@@ -7,7 +7,6 @@ public class User {
 	private String userName;
 	private String userGender;
 	private String userEmail;
-	
 	public String getUserID() {
 		return userID;
 	}
@@ -39,4 +38,6 @@ public class User {
 		this.userEmail = userEmail;
 	}
 	
+	
+
 }
