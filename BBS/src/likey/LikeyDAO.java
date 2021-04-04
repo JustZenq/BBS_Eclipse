@@ -9,7 +9,6 @@ import java.sql.SQLException;
 
 public class LikeyDAO {
 	private Connection conn;
-	private ResultSet rs;
 	
 	public LikeyDAO() {
 		try {

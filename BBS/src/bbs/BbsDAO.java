@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+
 public class BbsDAO {
 	
 	private Connection conn;
@@ -57,12 +58,13 @@ public class BbsDAO {
 	}
 	
 	
-	public int like(String bbsTitle) {
+	public int like(String bbsID) {
+
 		PreparedStatement pstmt = null;
-	        try {
-			String SQL = "UPDATE bbs SET likeCount = likeCount + 1 WHERE bbsTitle = ?";
+		try {
+			String SQL = "UPDATE bbs SET likeCount = likeCount + 1 WHERE bbsID = ?";
 			pstmt = conn.prepareStatement(SQL);
-			pstmt.setString(1, bbsTitle);
+			pstmt.setInt(1, Integer.parseInt(bbsID));
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -76,6 +78,7 @@ public class BbsDAO {
 		}
 		return -1;
 	}
+
 
 	//글쓰기 메소드
 	public int write(String bbsTitle, String userID, String bbsContent) {
