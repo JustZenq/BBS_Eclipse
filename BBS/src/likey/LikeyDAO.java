@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class LikeyDAO {
 	private Connection conn;
-	
+	//ìƒì„±ì í´ë˜ìŠ¤
 	public LikeyDAO() {
 		try {
 			String dbURL = "jdbc:mysql://localhost:3306/bbs?serverTimezone=Asia/Seoul&useSSL=false&useUnicode=true&characterEncoding=UTF-8";
@@ -20,8 +20,9 @@ public class LikeyDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	} 
 	
+	// ì¶”ì²œ ë¡œì§ 
 	public int like(String userID, String bbsID, String userIP) {
 		String SQL = "INSERT INTO LIKEY VALUES(?,?,?)";
 		try {
@@ -34,6 +35,6 @@ public class LikeyDAO {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		return -1; //ÃßÃµ Áßº¹ ¿À·ù
+		return -1; //
 		}
 }
