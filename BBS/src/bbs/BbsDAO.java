@@ -12,10 +12,10 @@ public class BbsDAO {
 	private Connection conn;
 	private ResultSet rs;
 	
-	//±âº» »ı¼ºÀÚ
+	//ê¸°ë³¸ ìƒì„±ì
 	public BbsDAO() {
 		try {
-			String dbURL = "jdbc:mysql://localhost:3306/bbs?serverTimezone=Asia/Seoul&useSSL=false&useUnicode=true&characterEncoding=UTF-8";
+			String dbURL = "jdbc:mysql://localhost:3306/bbs?serverTimezone=Asia/Seoul&useSSL=false&useUnicode=true&characterEncoding=UTF-8"; //bbs? ë’¤ì— ìˆëŠ” ê²ƒë“¤ì„ ê¸°ì…í•´ì£¼ì–´ì•¼ ì„œë²„ íƒ€ì„ ì˜¤ë¥˜ì™€ í•œê¸€ ê¹¨ì§ í˜„ìƒì„ ë°©ì§€í•  ìˆ˜ ìˆìŒ 
 			String dbID = "root";
 			String dbPassword = "root";
 			Class.forName("com.mysql.jdbc.Driver");
@@ -25,9 +25,9 @@ public class BbsDAO {
 		}
 	}
 	
-	//ÀÛ¼ºÀÏÀÚ ¸Ş¼Òµå
+	//ì‘ì„±ì¼ì ë©”ì†Œë“œ
 	public String getDate() {
-		String sql = "select now()";
+		String sql = "select now()"; //í˜„ì¬ ë‚ ì§œì™€ ì‹œê°„ì„ ë¶ˆëŸ¬ì˜´
 		try {
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				rs = pstmt.executeQuery();
@@ -37,12 +37,12 @@ public class BbsDAO {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "";//µ¥ÀÌÅÍº£ÀÌ½º ¿À·ù
+		return "";//ë°ì´í„°ë² ì´ìŠ¤ ì˜¤ë¥˜
 	}
 	
-	//°Ô½Ã±Û ¹øÈ£ ºÎ¿© ¸Ş¼Òµå
+	//ê²Œì‹œê¸€ ë²ˆí˜¸ ë¶€ì—¬ ë©”ì†Œë“œ
 	public int getNext() {
-		//ÇöÀç °Ô½Ã±ÛÀ» ³»¸²Â÷¼øÀ¸·Î Á¶È¸ÇÏ¿© °¡Àå ¸¶Áö¸· ±ÛÀÇ ¹øÈ£¸¦ ±¸ÇÑ´Ù
+		//í˜„ì¬ ê²Œì‹œê¸€ì„ ë‚´ë¦¼ì°¨ìˆœìœ¼ë¡œ ì¡°íšŒí•˜ì—¬ ê°€ì¥ ë§ˆì§€ë§‰ ê¸€ì˜ ë²ˆí˜¸ë¥¼ êµ¬í•œë‹¤
 		String sql = "select bbsID from BBS order by bbsID desc";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -50,19 +50,19 @@ public class BbsDAO {
 			if(rs.next()) {
 				return rs.getInt(1)+1;
 			}
-			return 1; //Ã¹ ¹øÂ° °Ô½Ã¹°ÀÎ °æ¿ì
+			return 1; //ì²« ë²ˆì§¸ ê²Œì‹œë¬¼ì¸ ê²½ìš°
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		return -1; //µ¥ÀÌÅÍº£ÀÌ½º ¿À·ù
+		return -1; //ë°ì´í„°ë² ì´ìŠ¤ ì˜¤ë¥˜
 	}
 	
-	
-	public int like(String bbsID) {
+	//ì¶”ì²œ ìˆ˜ ì—…ë°ì´íŠ¸ ë©”ì†Œë“œ
+	public int like(String bbsID) { //bbsIDëŠ” í˜„ì¬ í…Œì´ë¸”ì— int ìë£Œí˜•ìœ¼ë¡œ ì„ ì–¸ë˜ì—ˆê¸°ì— ì›ì¹™ì ìœ¼ë¡œëŠ” intí˜•ìœ¼ë¡œ íŒŒë¼ë¯¸í„°ë¡œ ì§€ì •í•´ì£¼ëŠ” ê²ƒì´ ë§ìœ¼ë‚˜ Stringìœ¼ë¡œ ë°›ê³  intí˜•ìœ¼ë¡œ í˜•ë³€í™˜ í•´ì£¼ëŠ” ê²ƒì´ ì‹œê°„ì ìœ¼ë¡œëŠ” ë” ë¹ ë¥´ë‹¤ê³  í•¨ í¬ê²Œ ìƒê´€ì€ ì—†ëŠ” ë“¯ í•˜ë‚˜ ì¶”ê°€ ì¡°ì‚¬ê°€ í•„ìš”í•  ë“¯í•¨    
 
 		PreparedStatement pstmt = null;
 		try {
-			String SQL = "UPDATE bbs SET likeCount = likeCount + 1 WHERE bbsID = ?";
+			String SQL = "UPDATE bbs SET likeCount = likeCount + 1 WHERE bbsID = ?"; 
 			pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, Integer.parseInt(bbsID));
 			return pstmt.executeUpdate();
@@ -75,12 +75,12 @@ public class BbsDAO {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
+		} //try-catch-finally êµ¬ë¬¸ì€ tryë¥¼ í•˜ê³  ì˜ˆì™¸ ì²˜ë¦¬ ë°œìƒ ì‹œ try->catch->finally ìˆœìœ¼ë¡œ ì‹¤í–‰í•˜ê³  ì˜ˆì™¸ê°€ ì—†ì„ ì‹œ try->finally ìˆœìœ¼ë¡œ ì‹¤í–‰í•œë‹¤
 		return -1;
 	}
 
 
-	//±Û¾²±â ¸Ş¼Òµå
+	//ê¸€ì“°ê¸° ë©”ì†Œë“œ
 	public int write(String bbsTitle, String userID, String bbsContent) {
 		String SQL = "INSERT INTO bbs (bbsID, bbsTitle, userID, bbsDate, bbsContent, bbsAvailable) VALUES(?, ?, ?, ?, ?, ?)";
 		try {
@@ -90,25 +90,25 @@ public class BbsDAO {
 			pstmt.setString(3, userID);
 			pstmt.setString(4, getDate());
 			pstmt.setString(5, bbsContent);
-			pstmt.setInt(6, 1); //±ÛÀÇ À¯È¿¹øÈ£
+			pstmt.setInt(6, 1); //ê¸€ì˜ ìœ íš¨ë²ˆí˜¸
 			return pstmt.executeUpdate();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		return -1; //µ¥ÀÌÅÍº£ÀÌ½º ¿À·ù	
+		return -1; //ë°ì´í„°ë² ì´ìŠ¤ ì˜¤ë¥˜	
 	}
 
 
-	//°Ô½Ã±Û ¸®½ºÆ® ¸Ş¼Òµå
-	public ArrayList<Bbs> getList(int pageNumber){//ÇöÀç ÆäÀÌÁöÀÇ °Ô½Ã±Û ¸ñ·ÏÀ» ¸®½ºÆ® ÇüÅÂ·Î ¹Ş¾Æ¿Â´Ù
-		//¸ğµç °Ô½Ã±ÛÀ» Á¶È¸ÇÑ´Ù. ÇöÀç À¯È¿¹øÈ£°¡ Á¸ÀçÇÏ°í »õ·Ó°Ô ÀÛ¼ºµÉ °Ô½Ã±Û ¹øÈ£º¸´Ù ÀÛÀº ¸ğµç °Ô½Ã±Û¹øÈ£¸¦ ³»¸²Â÷¼ø Á¤·Ä·Î ÃÖ´ë 10°³±îÁö Á¶È¸
+	//ê²Œì‹œê¸€ ë¦¬ìŠ¤íŠ¸ ë©”ì†Œë“œ
+	public ArrayList<Bbs> getList(int pageNumber){//í˜„ì¬ í˜ì´ì§€ì˜ ê²Œì‹œê¸€ ëª©ë¡ì„ ë¦¬ìŠ¤íŠ¸ í˜•íƒœë¡œ ë°›ì•„ì˜¨ë‹¤
+		//ëª¨ë“  ê²Œì‹œê¸€ì„ ì¡°íšŒí•œë‹¤. í˜„ì¬ ìœ íš¨ë²ˆí˜¸ê°€ ì¡´ì¬í•˜ê³  ìƒˆë¡­ê²Œ ì‘ì„±ë  ê²Œì‹œê¸€ ë²ˆí˜¸ë³´ë‹¤ ì‘ì€ ëª¨ë“  ê²Œì‹œê¸€ë²ˆí˜¸ë¥¼ ë‚´ë¦¼ì°¨ìˆœ ì •ë ¬ë¡œ ìµœëŒ€ 10ê°œê¹Œì§€ ì¡°íšŒ
 		String sql = "select * from bbs where bbsID < ? and bbsAvailable = 1 order by bbsID desc limit 10";
 		ArrayList<Bbs> list = new ArrayList<Bbs>();
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1,  getNext()-(pageNumber-1)*10);
 			rs=pstmt.executeQuery();
-			while(rs.next()) {//°á°ú°ªÀÌ Á¸ÀçÇÏ´Â µ¿¾È °¢°¢ÀÇ ¿ä¼Ò¸¦ °¢°¢ ´ã¾Æ ÇÏ³ªÀÇ ¸®½ºÆ®·Î ¿Ï¼ºÇÏ¿© 'getList'·Î 'return'
+			while(rs.next()) {//ê²°ê³¼ê°’ì´ ì¡´ì¬í•˜ëŠ” ë™ì•ˆ ê°ê°ì˜ ìš”ì†Œë¥¼ ê°ê° ë‹´ì•„ í•˜ë‚˜ì˜ ë¦¬ìŠ¤íŠ¸ë¡œ ì™„ì„±í•˜ì—¬ 'getList'ë¡œ 'return'
 				Bbs bbs = new Bbs();
 				bbs.setBbsID(rs.getInt(1));
 				bbs.setBbsTitle(rs.getString(2));
@@ -126,7 +126,7 @@ public class BbsDAO {
 			
 	}
 	
-	//ÆäÀÌÂ¡ Ã³¸® ¸Ş¼Òµå (Æ¯Á¤ÇÑ ÆäÀÌÁö°¡ Á¸ÀçÇÏ´ÂÁö Á¶È¸ÇÏ´Â ¸Ş¼Òµå/ °Ô½Ã±ÛÀÌ 10°³¿¡¼­ 11°³·Î ³Ñ¾î°¥ ¶§ '´ÙÀ½'¹öÆ°À» ¸¸µé¾î ÆäÀÌÂ¡ Ã³¸®)
+	//í˜ì´ì§• ì²˜ë¦¬ ë©”ì†Œë“œ (íŠ¹ì •í•œ í˜ì´ì§€ê°€ ì¡´ì¬í•˜ëŠ”ì§€ ì¡°íšŒí•˜ëŠ” ë©”ì†Œë“œ/ ê²Œì‹œê¸€ì´ 10ê°œì—ì„œ 11ê°œë¡œ ë„˜ì–´ê°ˆ ë•Œ 'ë‹¤ìŒ'ë²„íŠ¼ì„ ë§Œë“¤ì–´ í˜ì´ì§• ì²˜ë¦¬)
 	public boolean nextPage(int pageNumber) {
 		String sql = "select * from bbs where bbsID <? and bbsAvailable = 1";
 		try {
@@ -142,7 +142,7 @@ public class BbsDAO {
 		return false;
 	}
 	
-	//ÇÏ³ªÀÇ °Ô½Ã±ÛÀ» º¸´Â ¸Ş¼Òµå
+	//í•˜ë‚˜ì˜ ê²Œì‹œê¸€ì„ ë³´ëŠ” ë©”ì†Œë“œ
 	public Bbs getBbs(int bbsID) {
 		String sql = "select * from bbs where bbsID = ?";
 		try {
@@ -165,7 +165,7 @@ public class BbsDAO {
 		}
 		return null;
 	}
-	//°Ô½Ã±Û ¼öÁ¤ ¸Ş¼Òµå
+	//ê²Œì‹œê¸€ ìˆ˜ì • ë©”ì†Œë“œ
 	public int update(int bbsID, String bbsTitle, String bbsContent) {
 		String sql = "update bbs set bbsTitle = ?, bbsContent = ? where bbsID=?";
 		try {
@@ -179,9 +179,9 @@ public class BbsDAO {
 		}
 		return -1;
 	}
-	//°Ô½Ã±Û »èÁ¦ ¸Ş¼Òµå
+	//ê²Œì‹œê¸€ ì‚­ì œ ë©”ì†Œë“œ
 	public int delete(int bbsID) {
-		//½ÇÁ¦ µ¥ÀÌÅÍ¸¦ »èÁ¦ÇÏ´Â °ÍÀÌ ¾Æ´Ï¶ó °Ô½Ã±Û À¯È¿¼ıÀÚ¸¦ 0À¸·Î ¼³Á¤ÇÑ´Ù.
+		//ì‹¤ì œ ë°ì´í„°ë¥¼ ì‚­ì œí•˜ëŠ” ê²ƒì´ ì•„ë‹ˆë¼ ê²Œì‹œê¸€ ìœ íš¨ìˆ«ìë¥¼ 0ìœ¼ë¡œ ì„¤ì •í•œë‹¤.
 		String sql = "update bbs set bbsAvailable = 0 where bbsID=?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
