@@ -2,11 +2,11 @@ package user;
 
 public class User {
 	
-	private String userID;
-	private String userPassword;
-	private String userName;
-	private String userGender;
-	private String userEmail;
+	private String userID; //사용자 아이디
+	private String userPassword; //사용자 비밀번호
+	private String userName; //사용자 이름
+	private String userGender; //사용자 성별
+	private String userEmail; //사용자 이메일
 	public String getUserID() {
 		return userID;
 	}
