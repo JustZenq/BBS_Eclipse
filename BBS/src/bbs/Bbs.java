@@ -9,6 +9,7 @@ public class Bbs {
 	private String bbsContent; //게시글 내용
 	private int bbsAvailable; //게시글의 삭제 유무
 	private int likeCount; //게시글 추천 갯수
+	private int readCount; //조회수 출력
 	
 	public int getBbsID() {
 		return bbsID;
@@ -51,6 +52,12 @@ public class Bbs {
 	}
 	public void setLikeCount(int likeCount) {
 		this.likeCount = likeCount;
+	}
+	public int getReadCount() {
+		return readCount;
+	}
+	public void setReadCount(int readCount) {
+		this.readCount = readCount;
 	}
 	
 }

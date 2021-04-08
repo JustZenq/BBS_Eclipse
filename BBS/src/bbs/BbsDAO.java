@@ -192,4 +192,24 @@ public class BbsDAO {
 		}
 		return -1;
 	}
+	public int read(int bbsID) // 조회수 증가 메소드
+	{
+		PreparedStatement pstmt = null;
+		try {
+			String SQL = "UPDATE bbs SET readCount = readCount + 1 WHERE bbsID = ?";
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, bbsID);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return -1;
+	}
 }

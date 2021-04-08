@@ -38,6 +38,8 @@
 		}
 		//유효한 글이라면 구체적인 정볼르 'bbs'라는 인스턴스에 담는다
 		Bbs bbs = new BbsDAO().getBbs(bbsID);
+		BbsDAO bbsDAO = new BbsDAO();
+		int result = bbsDAO.read(bbsID); //게시물을 보면 조회수가 1 증가되어 목록을 확인했을 때 업데이트 됨
 	%>
 	<%-- 네비게이션 링크 --%>
 	<nav class="navbar navbar-default">
@@ -124,6 +126,10 @@
 							<td>작성일자</td>
 							<td colspan = "2"><%= bbs.getBbsDate().substring(0,11) + bbs.getBbsDate().substring(11,13) + "시" 
 							+ bbs.getBbsDate().substring(14,16) + "분" %></td>
+						</tr>
+						<tr>
+							<td>조회수</td>
+							<td colspan = "2"><%=bbs.getReadCount()%></td>
 						</tr>
 						<tr>
 							<td>내용</td>
