@@ -1,13 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="comment.CommentDAO" %>  
 <%@ page import="bbs.BbsDAO" %>  
+<%@ page import="java.util.ArrayList" %>  
 <%@ page import="java.io.PrintWriter" %>   
 <%-- 외부 내부 페이지 import 하기--%>
 <% request.setCharacterEncoding("UTF-8"); %>
 
 <jsp:useBean id="bbs" class="bbs.Bbs" scope="page" />
-<jsp:setProperty name="bbs" property="bbsTitle" />
-<jsp:setProperty name="bbs" property="bbsContent" />
+<jsp:useBean id="comment" class="comment.CommentDTO" scope="page" />
+<jsp:setProperty name="bbs" property="bbsID" />
+<jsp:setProperty name="comment" property="commentContent" />
 
 
 <!DOCTYPE html>
@@ -19,6 +22,10 @@
 <body>
 	<%
 		String userID = null;
+		
+		String temp = request.getParameter("bbsID");
+		int bbsID = Integer.parseInt(temp);
+		
 		if(session.getAttribute("userID") != null)
 		{
 			userID = (String) session.getAttribute("userID");
@@ -36,24 +43,25 @@
 		}
 		else
 		{
-			// 글쓰기 양식에서 무언가 입력 X
-			if (bbs.getBbsTitle() == null || bbs.getBbsContent() == null)
+			// 댓글을 입력 X
+			if (comment.getCommentContent() == null)
 			{
 				PrintWriter script = response.getWriter();
 				script.println("<script>");
-				script.println("alert('입력이 안 된 사항이 있습니다.')");
+				script.println("alert('댓글 입력이 되지 않았습니다.')");
 				script.println("history.back()");		// 이전 페이지로 사용자 돌려보내기
 				script.println("</script>");
 			}
 			else
 			{
-				BbsDAO bbsDAO = new BbsDAO();
-				int result = bbsDAO.write(bbs.getBbsTitle(), userID, bbs.getBbsContent());
+				CommentDAO commentDAO = new CommentDAO();
+				int result = commentDAO.commentWrite(bbsID, userID, comment.getCommentContent());
 				if (result == -1) 		 // 데이터베이스 오류
 				{
 					PrintWriter script = response.getWriter();
 					script.println("<script>");
-					script.println("alert('글쓰기에 실패했습니다.')");
+					script.println("alert('글쓰기에 실패하였습니다." + comment.getCommentContent()  + "')");
+					//script.println("alert('글쓰기에 실패했습니다.')");
 					script.println("history.back()");	
 					script.println("</script>");
 				}

@@ -4,10 +4,6 @@
 <%@ page import="java.io.PrintWriter" %>    
 <%@ page import="bbs.Bbs" %>
 <%@ page import="bbs.BbsDAO" %>  
-<%@ page import="comment.CommentDTO" %>
-<%@ page import="comment.CommentDAO" %>  
-<%@ page import="java.util.ArrayList" %>  
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +20,6 @@
 <body>
 	<%
 		String userID = null;	// 로그인을 안 한 사람이라면 null 값
-
 		if (session.getAttribute("userID") != null)	// 로그인을 한 사람이라면 값 유지
 		{
 			userID = (String)session.getAttribute("userID");
@@ -153,26 +148,17 @@
 					}
 				%>
 				
-				<%
-					int temp = 23;
-					// 데이터베이스에서 댓글을 ArrayList로 가져오기
-					CommentDAO commentDAO = new CommentDAO();
-					ArrayList<CommentDTO> list = commentDAO.getCommentList(temp); // int bbsID :23 으로 실험
-				%>
-				
 				<!-- 댓글 div -->
 				<div class="be-comment-block">
-					<h1 class="comments-title">Comments (<%=list.size() %>)</h1>	<!-- 댓글 개수 -->
-		            
-		            <!-- 댓글 예시 -->
+		            <h1 class="comments-title">Comments (3)</h1>	<!-- 댓글 개수 -->
 		            <div class="be-comment">
 		                <div class="be-img-comment">	
 		                    <a href="blog-detail-2.html">
 		                        <img src="images/avatar1.png" alt="" class="be-ava-comment">
 		                    </a>
 		                </div>
-		                
 		                <div class="be-comment-content">
+		                    
 		                        <span class="be-comment-name">
 		                            <a href="blog-detail-2.html">Ravi Sah</a> 	<!-- userID -->
 		                            </span>
@@ -188,39 +174,64 @@
 		                    </p>
 		                </div>
 		            </div>
-		            
-		            <!-- 진짜 데이터베이스에서 가져온 댓글 -->
-		       		<%
-		       			for(int i = 0; i<list.size(); i++) {
-		       		%>
 		            <div class="be-comment">
-		            	<div class="be-img-comment">
-		            	</div>
-		            	
-		            	<div class="be-comment-content">
-		            		<span class="be-comment-name">	<!-- userID로 표시 -->
-		            			<a href="#"><%=list.get(i).getUserID() %></a>
-		            		</span>
-	                        <span class="be-comment-time">
-	                            <i class="fa fa-clock-o"></i>				<!-- commentDate -->
-	                            <%=list.get(i).getCommentDate() %>
-	                        </span>
-		
-		                    <p class="be-comment-text">							<!-- commentContent -->
-		                        <%=list.get(0).getCommentContent() %>
+		                <div class="be-img-comment">	
+		                    <a href="blog-detail-2.html">
+		                        <img src="images/avatar2.png" alt="" class="be-ava-comment">
+		                    </a>
+		                </div>
+		                <div class="be-comment-content">
+		                    <span class="be-comment-name">
+		                        <a href="blog-detail-2.html">Phoenix, the Creative Studio</a>
+		                    </span>
+		                    <span class="be-comment-time">
+		                        <i class="fa fa-clock-o"></i>
+		                        May 27, 2015 at 3:14am
+		                    </span>
+		                    <p class="be-comment-text">
+		                        Nunc ornare sed dolor sed mattis. In scelerisque dui a arcu mattis, at maximus eros commodo. Cras magna nunc, cursus lobortis luctus at, sollicitudin vel neque. Duis eleifend lorem non ant. Proin ut ornare lectus, vel eleifend est. Fusce hendrerit dui in turpis tristique blandit.
 		                    </p>
 		                </div>
 		            </div>
-		            <%
-		       			}
-		            %> 
-		            <form class="form-block" method="post" action="commentWriteAction.jsp?bbsID=<%= bbsID %>"> 
-		                    <div class="col-xs-12">									
-		                        <div class="form-group">
-		                            <textarea class="form-input" name="commentContent" placeholder="Your text"></textarea>
+		            <div class="be-comment">
+		                <div class="be-img-comment">	
+		                    <a href="blog-detail-2.html">
+		                        <img src="images/avatar3.png" alt="" class="be-ava-comment">
+		                    </a>
+		                </div>
+		                <div class="be-comment-content">
+		                    <span class="be-comment-name">
+		                        <a href="blog-detail-2.html">Cüneyt ŞEN</a>
+		                    </span>
+		                    <span class="be-comment-time">
+		                        <i class="fa fa-clock-o"></i>
+		                        May 27, 2015 at 3:14am
+		                    </span>
+		                    <p class="be-comment-text">
+		                        Cras magna nunc, cursus lobortis luctus at, sollicitudin vel neque. Duis eleifend lorem non ant
+		                    </p>
+		                </div>
+		            </div>
+		            <form class="form-block">
+		                <div class="row">
+		                    <div class="col-xs-12 col-sm-6">
+		                        <div class="form-group fl_icon">
+		                            <div class="icon"><i class="fa fa-user"></i></div>
+		                            <input class="form-input" type="text" placeholder="Your name">
 		                        </div>
 		                    </div>
-		                    <input type="submit" class="btn btn-primary pull-right" value="댓글 달기">
+		                    <div class="col-xs-12 col-sm-6 fl_icon">
+		                        <div class="form-group fl_icon">
+		                            <div class="icon"><i class="fa fa-envelope-o"></i></div>
+		                            <input class="form-input" type="text" placeholder="Your email">
+		                        </div>
+		                    </div>
+		                    <div class="col-xs-12">									
+		                        <div class="form-group">
+		                            <textarea class="form-input" required="" placeholder="Your text"></textarea>
+		                        </div>
+		                    </div>
+		                    <a class="btn btn-primary pull-right" href="commentAction.jsp">댓글</a>
 		                </div>
 		            </form>
 		        </div>
