@@ -92,6 +92,7 @@ public class CommentDAO {
 		return -1;	// 데이터베이스 오류
 	}
 	
+	// 댓글 데이터베이스의 데이터를 ArrayList로 가져오는 함수
 	public ArrayList<CommentDTO> getCommentList(int bbsID)
 	{
 		// 게시판 글번호(bbsID)와 맞는 댓글 모두 출력하는 SQL

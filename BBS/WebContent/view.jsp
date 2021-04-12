@@ -154,10 +154,9 @@
 				%>
 				
 				<%
-					int temp = 23;
 					// 데이터베이스에서 댓글을 ArrayList로 가져오기
 					CommentDAO commentDAO = new CommentDAO();
-					ArrayList<CommentDTO> list = commentDAO.getCommentList(temp); // int bbsID :23 으로 실험
+					ArrayList<CommentDTO> list = commentDAO.getCommentList(bbsID);
 				%>
 				
 				<!-- 댓글 div -->

@@ -69,7 +69,7 @@
 				{
 					PrintWriter script = response.getWriter();
 					script.println("<script>");
-					script.println("location.href = 'bbs.jsp'");
+					script.println("location.href = 'view.jsp?bbsID=" + bbsID +"'");
 					script.println("</script>");
 				}
 			}
